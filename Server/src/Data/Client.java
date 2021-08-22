@@ -33,14 +33,6 @@ public class Client {
         //user의 정보를 입력받는 메소드
     }
     
-    public void matchingRandomUser(){
-        //랜덤 매칭
-    }
-    
-    public void matchingPremiumUser(){
-        //과금러 매칭
-    }
-    
     public void checkUserGender(){
         //User 성별 체크 하는 메소드
     }
@@ -50,7 +42,7 @@ public class Client {
         return writer;
     }
     
-    public void getIp(){
+    public void getClientIp(){
         //접속자 IP 얻기
         InetSocketAddress socketaddr = (InetSocketAddress)clientSocket.getRemoteSocketAddress();
         InetAddress inaddr = socketaddr.getAddress();
@@ -69,6 +61,17 @@ public class Client {
         }
     }
     
+    public void getClientPort () {
+        //접속자 port번호
+        //.getPort? .getLocalPort?
+        
+    }
+    
+    public void sendMessageToClient(){
+        //클라이언트에게 메세지를 보낼 PrintWriter
+        
+    }
+
     public void setSocket(Socket socket){
         try{
             clientSocket = socket;
@@ -82,13 +85,22 @@ public class Client {
     }
     
     public void println(String message){
-        writer.println(message);
+                
+        System.out.println("" + message); //이게 서버 창에 뜬다
+        writer.println(message); //이게 사용자 창에 뜨고
     }
+    
     
     public Socket getClientSocket(){
         
         return clientSocket;
     }
+    
+    
+    //==================================================================//
+    //==================================================================//
+    
+    
     public String getString(){
         //문자열 입력받는 메소드
         String input = "";

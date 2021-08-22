@@ -15,6 +15,9 @@ public class User {
     private int user_password;
     private boolean gender;
     private String nickname;
+    private boolean user_online;
+    private String user_major;
+    private String user_hobby;
     
     public User(String name, String id, int password, boolean gender, String nickname){
     this.name = name;

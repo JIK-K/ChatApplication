@@ -23,6 +23,16 @@ public class SocketManager {
     ServerSocket serverSocket;
     int port;
     
+    public SocketManager(int port){
+        try{
+            this.port = port;
+            serverSocket = new ServerSocket(port);
+            go();
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+    }
+    
     public class ClientHandler implements Runnable{
         BufferedReader reader;
         Socket socket;
@@ -49,15 +59,7 @@ public class SocketManager {
         }
     }
     
-    public SocketManager(int port){
-        try{
-            this.port = port;
-            serverSocket = new ServerSocket(port);
-            go();
-        }catch(IOException ex){
-            ex.printStackTrace();
-        }
-    }
+    
     
     public void go(){
         clients = new ArrayList<Client>();
@@ -69,7 +71,9 @@ public class SocketManager {
                 
                 connetedClient.setSocket(socket);
                 connetedClient.println("누군가가 접속 했습니다");
-                connetedClient.getIp();
+                connetedClient.getClientIp();
+                
+                clients.add(connetedClient);
                 
                 Thread t = new Thread(new ClientHandler(connetedClient.getClientSocket()));
                 t.start();
