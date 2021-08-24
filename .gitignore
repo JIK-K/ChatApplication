@@ -19,3 +19,4 @@ SangYun/GenerateClient/target/classes/Managers/GenerateManager.class
 SangYun/GenerateClient/target/classes/Network/ClientSocket.class
 SangYun/GenerateClient/target/classes/Network/ClientSocket$IncomingReader.class
 SangYun/GenerateClient/target/classes/Util/Debug.class
+SangYun/GenerateClient/target/classes/Network/ClientSocket$IncomingReader.class
