@@ -20,3 +20,5 @@ SangYun/GenerateClient/target/classes/Network/ClientSocket.class
 SangYun/GenerateClient/target/classes/Network/ClientSocket$IncomingReader.class
 SangYun/GenerateClient/target/classes/Util/Debug.class
 SangYun/GenerateClient/target/classes/Network/ClientSocket$IncomingReader.class
+SangYun/GenerateClient/target/classes/.netbeans_automatic_build
+SangYun/GenerateClient/target/test-classes/.netbeans_automatic_build
