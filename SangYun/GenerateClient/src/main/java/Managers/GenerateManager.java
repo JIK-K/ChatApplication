@@ -15,15 +15,32 @@ import java.util.Scanner;
  */
 public class GenerateManager {
     int numberOfClient;
-    
-    public void getNumberOfClient(){
-        System.out.println("클라이언트 수를 입력하세요.");
-        numberOfClient = getInteger();
-        setClients(numberOfClient);
+
+    public void setTargetClient() {
+        System.out.println("메시지를 보낼 클라이언트 인덱스를 입력하세요.");
+        int targetClientIdx = getInteger();
+        String message = setMessage();
+
+        sendFrom(targetClientIdx, message);
+    }
+
+    public void sendFrom(int idx, String msg){
+        ClientSocket cs = ClientSocketManager.getInstance().clients.get(idx);
+        String clientId = cs.getUser().getId();
+        cs.getWriter().println(clientId + ":" + msg);
+    }
+
+    public String setMessage(){
+        System.out.println("메시지를 입력하세요.");
+        String message = getString();
+
+        return message;
     }
     
-    public void setClients(int numOfClient){
-        for(int i = 0; i < numOfClient; i++){
+    public void setNumOfClients(){
+        System.out.println("클라이언트 수를 입력하세요.");
+        numberOfClient = getInteger();
+        for(int i = 0; i < numberOfClient; i++){
             ClientSocket cs = new ClientSocket();
             ClientSocketManager.getInstance().add(cs);
             
@@ -63,5 +80,7 @@ public class GenerateManager {
         }
         return input;
     }
+
+    
     
 }
