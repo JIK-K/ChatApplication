@@ -12,3 +12,10 @@ SangYun/GenerateClient/.settings/org.eclipse.m2e.core.prefs
 SangYun/RandomChatServer/src/Network/SocketManager.java
 SangYun/GenerateClient/target/classes/Util/Debug.class
 *.class
+SangYun/GenerateClient/target/classes/com/sang/generateclient/GenerateClient.class
+SangYun/GenerateClient/target/classes/Data/Client.class
+SangYun/GenerateClient/target/classes/Data/User.class
+SangYun/GenerateClient/target/classes/Managers/GenerateManager.class
+SangYun/GenerateClient/target/classes/Network/ClientSocket.class
+SangYun/GenerateClient/target/classes/Network/ClientSocket$IncomingReader.class
+SangYun/GenerateClient/target/classes/Util/Debug.class
