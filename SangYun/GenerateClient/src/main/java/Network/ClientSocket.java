@@ -13,6 +13,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
+import Data.User;
+import Util.Debug;
+
 /**
  *
  * @author ssy02
@@ -20,11 +23,21 @@ import java.nio.charset.StandardCharsets;
 public class ClientSocket {
     //------------------------------------------------------------------------//
     //
+<<<<<<< HEAD
     public static int numOfClient;
     public String clientName;
     
     BufferedReader reader;
     public PrintWriter writer;
+=======
+    public static int numOfClient; 
+    
+    BufferedReader reader;
+    private PrintWriter writer;
+    private User user;
+
+
+>>>>>>> cf6ba475a1bc3891af83dd59df43d4dd9b809244
     Socket socket;
     //------------------------------------------------------------------------//
     //
@@ -38,6 +51,7 @@ public class ClientSocket {
     //------------------------------------------------------------------------//
     private void setUpNetworking(){
         try {
+<<<<<<< HEAD
             socket = new Socket("127.0.0.1", 5000);
             clientName = "client" + numOfClient++;
             InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
@@ -46,6 +60,17 @@ public class ClientSocket {
             System.out.println(clientName + " on");
             // "###id/nickname/random/gender/###"
             writer.println("###client" + numOfClient + "/nickname/계대/19/gender/###");
+=======
+            socket = new Socket("127.0.0.1", 4242);
+            user = new User("client" + numOfClient++);
+            InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
+            reader = new BufferedReader(streamReader);
+            writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),StandardCharsets.UTF_8), true );
+
+            Debug.log(user.getId() + " on");
+            
+            writer.println("###" + user + "random" + "###");
+>>>>>>> cf6ba475a1bc3891af83dd59df43d4dd9b809244
             writer.flush();
         } catch(IOException ex) {
             ex.printStackTrace();
@@ -71,5 +96,23 @@ public class ClientSocket {
                 ex.printStackTrace();
             }
         }
+    }
+    //------------------------------------------------------------------------//
+    // getter and setter
+    //------------------------------------------------------------------------//
+    public PrintWriter getWriter() {
+        return this.writer;
+    }
+
+    public void setWriter(PrintWriter writer) {
+        this.writer = writer;
+    }
+    
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

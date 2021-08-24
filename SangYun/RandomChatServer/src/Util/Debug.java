@@ -13,15 +13,7 @@ import java.util.Date;
  * @author ssy02
  */
 public class Debug {
-    private static Debug instance = new Debug();
     static boolean  DEBUG = true;
-    private Debug(){
-        
-    }
-    public static Debug getInstance(){
-        if (instance == null) { instance = new Debug();}
-        return instance;
-    }
     public static void log(String message){
         if(DEBUG){
             System.out.println(getFileName() + " "+ getTime() + " : " + message);

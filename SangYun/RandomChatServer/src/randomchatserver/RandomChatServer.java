@@ -18,7 +18,7 @@ public class RandomChatServer {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        SocketManager socketManager = new SocketManager(4242);
+        SocketManager socketManager = new SocketManager(5000);
     }
     
 }

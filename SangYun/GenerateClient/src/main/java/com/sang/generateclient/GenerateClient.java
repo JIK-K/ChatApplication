@@ -14,7 +14,12 @@ import Managers.GenerateManager;
 public class GenerateClient {
     public static void main(String[] args){
         GenerateManager gm = new GenerateManager();
+<<<<<<< HEAD
         gm.getNumberOfClient();
         
+=======
+        gm.setNumOfClients();
+        gm.setTargetClient();
+>>>>>>> cf6ba475a1bc3891af83dd59df43d4dd9b809244
     }
 }

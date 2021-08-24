@@ -15,10 +15,32 @@ import java.util.Scanner;
  */
 public class GenerateManager {
     int numberOfClient;
+
+    public void setTargetClient() {
+        System.out.println("메시지를 보낼 클라이언트 인덱스를 입력하세요.");
+        int targetClientIdx = getInteger();
+        String message = setMessage();
+
+        sendFrom(targetClientIdx, message);
+    }
+
+    public void sendFrom(int idx, String msg){
+        ClientSocket cs = ClientSocketManager.getInstance().clients.get(idx);
+        String clientId = cs.getUser().getId();
+        cs.getWriter().println(clientId + ":" + msg);
+    }
+
+    public String setMessage(){
+        System.out.println("메시지를 입력하세요.");
+        String message = getString();
+
+        return message;
+    }
     
-    public void getNumberOfClient(){
+    public void setNumOfClients(){
         System.out.println("클라이언트 수를 입력하세요.");
         numberOfClient = getInteger();
+<<<<<<< HEAD
         setClients(numberOfClient);
         System.out.println("보낼 클라이언트");
         int sendIdx = getInteger();
@@ -30,6 +52,9 @@ public class GenerateManager {
     
     public void setClients(int numOfClient){
         for(int i = 0; i < numOfClient; i++){
+=======
+        for(int i = 0; i < numberOfClient; i++){
+>>>>>>> cf6ba475a1bc3891af83dd59df43d4dd9b809244
             ClientSocket cs = new ClientSocket();
             ClientSocketManager.getInstance().add(cs);
         }
@@ -71,5 +96,7 @@ public class GenerateManager {
         }
         return input;
     }
+
+    
     
 }
