@@ -4,3 +4,11 @@
 /Server/nbproject/private/
 /Server/build/
 /Server/dist/
+SangYun/GenerateClient/.project
+SangYun/GenerateClient/.settings/org.eclipse.core.resources.prefs
+SangYun/GenerateClient/.settings/org.eclipse.jdt.apt.core.prefs
+SangYun/GenerateClient/.settings/org.eclipse.jdt.core.prefs
+SangYun/GenerateClient/.settings/org.eclipse.m2e.core.prefs
+SangYun/RandomChatServer/src/Network/SocketManager.java
+SangYun/GenerateClient/target/classes/Util/Debug.class
+*.class
