@@ -21,14 +21,52 @@ public class Client {
     //------------------------------------------------------------------------//
     //
     //------------------------------------------------------------------------//
-    User user;
-    String ip;
-    int port;
+    private User user;
+    private String ip;
+    private int port;
     Socket clientSocket;
+    private int connectedClientIdx;
+    private boolean matching = false;
+
+    
+
     PrintWriter writer;
     //------------------------------------------------------------------------//
     //
     //------------------------------------------------------------------------//
+    public Client(User user){
+        this.user = user;
+    }
+
+    public Client(Socket socket){
+        setSocket(socket);
+    }
+
+    public Client(Socket socket, User user){
+        this(socket);
+        this.user = user;
+    }
+
+    public Client(Socket socket, User user, int connectedClientIdx){
+        this(socket, user);
+        this.connectedClientIdx = connectedClientIdx;
+    }
+    //------------------------------------------------------------------------//
+    //
+    //------------------------------------------------------------------------//
+    // equals 오버라이드 (clients.indexOf 함수 사용 시 호출)
+    @Override
+    public boolean equals(Object o){
+        
+        if(this == o)
+            return true;
+        if(!(o instanceof Client))
+            return false;
+        Client c = (Client) o;
+
+        return c.getUser() != null && this.user.getId().equals(c.getUser().getId()) ;
+    }
+
     public void setSocket(Socket socket){
         try{
             clientSocket = socket;
@@ -86,5 +124,21 @@ public class Client {
 
     public void setWriter(PrintWriter writer) {
         this.writer = writer;
+    }
+
+    public int getConnectedClientIdx() {
+        return this.connectedClientIdx;
+    }
+
+    public void setConnectedClientIdx(int connectedClientIdx) {
+        this.connectedClientIdx = connectedClientIdx;
+    }
+
+    public boolean isMatching() {
+        return this.matching;
+    }
+
+    public void setIsMatching(boolean isMatching) {
+        this.matching = isMatching;
     }
 }
