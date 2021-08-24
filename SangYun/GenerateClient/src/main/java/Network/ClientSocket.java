@@ -23,13 +23,6 @@ import Util.Debug;
 public class ClientSocket {
     //------------------------------------------------------------------------//
     //
-<<<<<<< HEAD
-    public static int numOfClient;
-    public String clientName;
-    
-    BufferedReader reader;
-    public PrintWriter writer;
-=======
     public static int numOfClient; 
     
     BufferedReader reader;
@@ -37,7 +30,6 @@ public class ClientSocket {
     private User user;
 
 
->>>>>>> cf6ba475a1bc3891af83dd59df43d4dd9b809244
     Socket socket;
     //------------------------------------------------------------------------//
     //
@@ -51,16 +43,6 @@ public class ClientSocket {
     //------------------------------------------------------------------------//
     private void setUpNetworking(){
         try {
-<<<<<<< HEAD
-            socket = new Socket("127.0.0.1", 5000);
-            clientName = "client" + numOfClient++;
-            InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
-            reader = new BufferedReader(streamReader);
-            writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),StandardCharsets.UTF_8), true );
-            System.out.println(clientName + " on");
-            // "###id/nickname/random/gender/###"
-            writer.println("###client" + numOfClient + "/nickname/계대/19/gender/###");
-=======
             socket = new Socket("127.0.0.1", 4242);
             user = new User("client" + numOfClient++);
             InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
@@ -70,7 +52,6 @@ public class ClientSocket {
             Debug.log(user.getId() + " on");
             
             writer.println("###" + user + "random" + "###");
->>>>>>> cf6ba475a1bc3891af83dd59df43d4dd9b809244
             writer.flush();
         } catch(IOException ex) {
             ex.printStackTrace();
@@ -81,10 +62,7 @@ public class ClientSocket {
         Thread readerThread = new Thread(new IncomingReader());
         readerThread.start();
     }
-    public void send(String message){
-        writer.println(clientName + ":" + message);
-        writer.flush();
-    }
+    
     public class IncomingReader implements Runnable {
         public void run(){
             String message;

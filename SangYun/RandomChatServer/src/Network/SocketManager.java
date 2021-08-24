@@ -49,11 +49,6 @@ public class SocketManager {
             String message;
             try{
                 while((message = reader.readLine()) != null){
-<<<<<<< HEAD
-                    System.out.println("" + message);
-                    
-                    tellConnectedClient(message);
-=======
                     if(message.startsWith("###")){
                         message = message.replace("###","");
                         String[] info = message.split("/");
@@ -73,7 +68,6 @@ public class SocketManager {
                         int fromIdx = clients.indexOf(client);
                         
                     }
->>>>>>> cf6ba475a1bc3891af83dd59df43d4dd9b809244
                 }
             }catch(Exception e){
                 e.printStackTrace();
@@ -147,11 +141,6 @@ public class SocketManager {
             ex.printStackTrace();
         }
     }
-<<<<<<< HEAD
-    public void tellConnectedClient(String Message){
-        client.
-    }
-=======
 
     public User parseUser(String[] info){
         User user = new User(info[0], info[1], info[2], info[3], info[4], Integer.parseInt(info[5]));
@@ -159,7 +148,6 @@ public class SocketManager {
         return user;
     }
 
->>>>>>> cf6ba475a1bc3891af83dd59df43d4dd9b809244
     public void tellEveryone(String message){
         for(Client client : clients){
             try{

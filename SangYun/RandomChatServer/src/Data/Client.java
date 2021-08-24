@@ -21,16 +21,9 @@ public class Client {
     //------------------------------------------------------------------------//
     //
     //------------------------------------------------------------------------//
-<<<<<<< HEAD
-    User user;
-    String ip;
-    int port;
-    int connectedClient;
-=======
     private User user;
     private String ip;
     private int port;
->>>>>>> cf6ba475a1bc3891af83dd59df43d4dd9b809244
     Socket clientSocket;
     private int connectedClientIdx;
     private boolean matching = false;
