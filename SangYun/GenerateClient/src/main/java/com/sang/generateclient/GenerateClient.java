@@ -15,5 +15,6 @@ public class GenerateClient {
     public static void main(String[] args){
         GenerateManager gm = new GenerateManager();
         gm.getNumberOfClient();
+        
     }
 }

@@ -44,7 +44,8 @@ public class SocketManager {
             try{
                 while((message = reader.readLine()) != null){
                     System.out.println("" + message);
-                    tellEveryone(message);
+                    
+                    tellConnectedClient(message);
                 }
             }catch(Exception e){
                 e.printStackTrace();
@@ -84,7 +85,9 @@ public class SocketManager {
             ex.printStackTrace();
         }
     }
-    
+    public void tellConnectedClient(String Message){
+        client.
+    }
     public void tellEveryone(String message){
         for(Client client : clients){
             try{

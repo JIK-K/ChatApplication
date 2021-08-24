@@ -20,16 +20,24 @@ public class GenerateManager {
         System.out.println("클라이언트 수를 입력하세요.");
         numberOfClient = getInteger();
         setClients(numberOfClient);
+        System.out.println("보낼 클라이언트");
+        int sendIdx = getInteger();
+        System.out.println("보낼 메세지");
+        String message = getString();
+        sendFrom(sendIdx, message);
+        
     }
     
     public void setClients(int numOfClient){
         for(int i = 0; i < numOfClient; i++){
             ClientSocket cs = new ClientSocket();
             ClientSocketManager.getInstance().add(cs);
-            
-            
         }
-        
+    }
+    
+    public void sendFrom(int index, String message){
+        System.out.println("client id : " + ClientSocketManager.getInstance().clients.get(index).clientName);
+        ClientSocketManager.getInstance().clients.get(index).writer.println(ClientSocketManager.getInstance().clients.get(index).clientName + ":"+message);
     }
     //------------------------------------------------------------------------//
     //

@@ -24,6 +24,7 @@ public class Client {
     User user;
     String ip;
     int port;
+    int connectedClient;
     Socket clientSocket;
     PrintWriter writer;
     //------------------------------------------------------------------------//

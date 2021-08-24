@@ -21,10 +21,10 @@ public class ClientSocket {
     //------------------------------------------------------------------------//
     //
     public static int numOfClient;
-    String clientName;
+    public String clientName;
     
     BufferedReader reader;
-    PrintWriter writer;
+    public PrintWriter writer;
     Socket socket;
     //------------------------------------------------------------------------//
     //
@@ -38,14 +38,14 @@ public class ClientSocket {
     //------------------------------------------------------------------------//
     private void setUpNetworking(){
         try {
-            socket = new Socket("127.0.0.1", 4242);
-            clientName = "client " + numOfClient++;
+            socket = new Socket("127.0.0.1", 5000);
+            clientName = "client" + numOfClient++;
             InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
             reader = new BufferedReader(streamReader);
             writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),StandardCharsets.UTF_8), true );
             System.out.println(clientName + " on");
-            
-            writer.println("접속 : " + clientName);
+            // "###id/nickname/random/gender/###"
+            writer.println("###client" + numOfClient + "/nickname/계대/19/gender/###");
             writer.flush();
         } catch(IOException ex) {
             ex.printStackTrace();
@@ -56,7 +56,10 @@ public class ClientSocket {
         Thread readerThread = new Thread(new IncomingReader());
         readerThread.start();
     }
-    
+    public void send(String message){
+        writer.println(clientName + ":" + message);
+        writer.flush();
+    }
     public class IncomingReader implements Runnable {
         public void run(){
             String message;
