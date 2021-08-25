@@ -5,6 +5,7 @@
  */
 package com.sang.generateclient;
 
+import Managers.DBConnector;
 import Managers.GenerateManager;
 
 /**
@@ -13,6 +14,7 @@ import Managers.GenerateManager;
  */
 public class GenerateClient {
     public static void main(String[] args){
+        DBConnector.getConnection();
         GenerateManager gm = new GenerateManager();
         gm.setNumOfClients();
         gm.setTargetClient();
