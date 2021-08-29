@@ -5,6 +5,7 @@
  */
 package Data;
 
+import Util.Debug;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -23,23 +24,51 @@ import java.util.Scanner;
  * @author JIK
  */
 public class Client {
-    public ArrayList<User> user;
+    private User user;
+    private String ip;
+    private int port;
     PrintWriter writer;
-    String ip;
-    int port;
     Socket clientSocket;
+    public int connectedClientIdx = -1;
+    public int status = 0;
     
+    // ------------------------------------------------------------------------//
+    //
+    // ------------------------------------------------------------------------//
+    public Client(User user){
+        this.user = user;
+    }
+    public Client(Socket socket){
+        setSocket(socket);
+    }
+    public Client(Socket socket, User user){
+        this(socket);
+        this.user = user;
+    }
+    public Client(Socket socket, User user, int connectedClientIdx){
+        this(socket, user);
+        this.connectedClientIdx = connectedClientIdx;
+    }
+    // ------------------------------------------------------------------------//
+    //
+    // ------------------------------------------------------------------------//
+    @Override
+    public boolean equals(Object o){
+        if(this == o)
+            return true;
+        if(!(o instanceof Client))
+            return false;
+        Client c = (Client) o;
+        
+        return c.getUser() != null && this.user.getId().equals(c.getUser().getId());
+                    
+    }
     void getUserInformation(){
         //user의 정보를 입력받는 메소드
     }
     
     public void checkUserGender(){
         //User 성별 체크 하는 메소드
-    }
-    
-    public PrintWriter getWriter(){
-        
-        return writer;
     }
     
     public void getClientIp(){
@@ -60,17 +89,6 @@ public class Client {
             System.err.println("Not an internet protocol socket");
         }
     }
-    
-    public void getClientPort () {
-        //접속자 port번호
-        //.getPort? .getLocalPort?
-        
-    }
-    
-    public void sendMessageToClient(){
-        //클라이언트에게 메세지를 보낼 PrintWriter
-        
-    }
 
     public void setSocket(Socket socket){
         try{
@@ -84,16 +102,75 @@ public class Client {
         }
     }
     
+    
+    
+    
+    //==================================================================//
+    //==================================================================//
     public void println(String message){
-                
+        Debug.log(message);
         System.out.println("" + message); //이게 서버 창에 뜬다
         writer.println(message); //이게 사용자 창에 뜨고
     }
-    
-    
-    public Socket getClientSocket(){
-        
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public Socket getClientSocket() {
         return clientSocket;
+    }
+
+    public void setClientSocket(Socket clientSocket) {
+        this.clientSocket = clientSocket;
+    }
+
+    public PrintWriter getWriter() {
+        return writer;
+    }
+
+    public void setWriter(PrintWriter writer) {
+        this.writer = writer;
+    }
+
+    public int getConnectedClientIdx() {
+        return this.connectedClientIdx;
+    }
+
+    public void setConnectedClientIdx(int connectedClientIdx) {
+        this.connectedClientIdx = connectedClientIdx;
+    }
+
+    public int isMatching() {
+        return this.status;
+    }
+
+    public void setIsMatching(int status) {
+        this.status = isMatching();
+    }
+
+    public void chatting(ArrayList<Client> matchingUser, String message) {
+        matchingUser.get(connectedClientIdx).println(message);
     }
     
     

@@ -5,6 +5,7 @@
  */
 package Network;
 import Data.Client;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -62,12 +63,11 @@ public class MatchingManager {
                 System.out.println("이거 닫겨야 되는데 안닫기누");
             }
         }
-    
     }
 
     public void go(){
         //여기서 thread 만들자
-        Client chatter = new Client();
+        //Client chatter = new Client(socket);
         Thread t = new Thread();
         t.start();
     }
