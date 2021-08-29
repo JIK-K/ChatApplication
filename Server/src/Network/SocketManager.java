@@ -22,7 +22,7 @@ import javax.swing.SwingWorker;
  *
  * @author JIK
  */
-public class SocketManager {
+public class SocketManager implements Runnable{
     private static SocketManager instance;
     public ArrayList<Client> clients;
     public ArrayList<Client> matchingClients = new ArrayList<Client>();
@@ -33,7 +33,6 @@ public class SocketManager {
         try{
             this.port = port;
             serverSocket = new ServerSocket(port);
-            go();
         }catch(IOException ex){
             ex.printStackTrace();
         }
@@ -57,18 +56,7 @@ public class SocketManager {
             String message;
             try{
                 while((message = reader.readLine()) != null){
-                    if(message.startsWith("###")){
-                        Debug.log(message);
-                    } else{
-                        String[] splitMessage = message.split(":");
-                        String clientName = splitMessage[0];
-                        String msg = splitMessage[1];
-                        
-                        Client client = new Client(new User(clientName));
-
-                        matchingStart(clients, matchingClients, client);
-                        client.chatting(matchingClients, msg);
-                    }
+                    
                     System.out.println("" + message);
                     tellEveryone(message);
                 }
@@ -138,31 +126,25 @@ public class SocketManager {
     }
     
     
-    
-    public void go(){
+    @Override
+    public void run(){
         clients = new ArrayList<Client>();
         System.out.println("Server on");
         try{
-            final SwingWorker<Void ,Void> worker = new SwingWorker<Void, Void>(){
-                @Override
-                protected Void doInBackground() throws Exception {
-                    while(true){
-                    Socket socket = serverSocket.accept();
-                    Client connetedClient = new Client(socket);
-                    clients.add(connetedClient);
-                    
-                    connetedClient.setSocket(socket);
-                    connetedClient.println("누군가가 접속 했습니다");
-                    connetedClient.getClientIp();
+            while(true){
+                Socket socket = serverSocket.accept();
+                Client connetedClient = new Client(socket);
+                clients.add(connetedClient);
 
-                    
+                connetedClient.println("누군가가 접속 했습니다");
 
-                    Thread t = new Thread(new ClientHandler(connetedClient.getClientSocket()));
-                    t.start();
 
-                    }
-                }
-            };
+
+                Thread t = new Thread(new ClientHandler(connetedClient.getClientSocket()));
+                t.start();
+
+                Debug.log("client ip : " + connetedClient.getClientSocket().getInetAddress());
+            }
         }catch(Exception e){
             e.printStackTrace();
         }

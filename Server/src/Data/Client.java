@@ -63,6 +63,19 @@ public class Client {
         return c.getUser() != null && this.user.getId().equals(c.getUser().getId());
                     
     }
+    
+    public void setSocket(Socket socket){
+        try{
+            clientSocket = socket;
+            
+            writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),StandardCharsets.UTF_8), true );
+            ip = socket.getInetAddress().toString();
+            port = socket.getLocalPort();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+    
     void getUserInformation(){
         //user의 정보를 입력받는 메소드
     }
@@ -90,17 +103,7 @@ public class Client {
         }
     }
 
-    public void setSocket(Socket socket){
-        try{
-            clientSocket = socket;
-            
-            writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),StandardCharsets.UTF_8), true );
-            ip = socket.getInetAddress().toString();
-            port = socket.getLocalPort();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
+    
     
     
     

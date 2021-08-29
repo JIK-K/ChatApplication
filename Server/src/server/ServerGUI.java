@@ -4,24 +4,30 @@
  * and open the template in the editor.
  */
 package server;
-
+import GuiComponent.*;
 import Data.Client;
+import GuiComponent.UserContent;
 import Network.SocketManager;
 import java.awt.Color;
 import java.net.Socket;
+import net.miginfocom.swing.MigLayout;
 
 /**
  *
  * @author JIK
  */
 public class ServerGUI extends javax.swing.JFrame {
-
+     
     /**
      * Creates new form ServerGUI
      */
     public ServerGUI() {
         initComponents();
+        UserPanel.setLayout(new MigLayout("fillx, filly"));
+        LogPanel.setLayout(new MigLayout("fillx, filly"));
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,16 +41,22 @@ public class ServerGUI extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         guiTitle = new javax.swing.JLabel();
         MainPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        Area_Scroll = new javax.swing.JScrollPane();
         ChattingDebugArea = new javax.swing.JTextArea();
         ChattingControlArea = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        LogScroll = new javax.swing.JScrollPane();
+        LogPanel = new javax.swing.JPanel();
+        UserScroll = new javax.swing.JScrollPane();
+        UserPanel = new javax.swing.JPanel();
         serverOn = new javax.swing.JButton();
         serverOff = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
 
         jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         guiTitle.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
         guiTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -59,13 +71,53 @@ public class ServerGUI extends javax.swing.JFrame {
         ChattingDebugArea.setForeground(new java.awt.Color(255, 255, 255));
         ChattingDebugArea.setRows(5);
         ChattingDebugArea.setCaretColor(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(ChattingDebugArea);
+        Area_Scroll.setViewportView(ChattingDebugArea);
 
         ChattingControlArea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ChattingControlAreaActionPerformed(evt);
             }
         });
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout LogPanelLayout = new javax.swing.GroupLayout(LogPanel);
+        LogPanel.setLayout(LogPanelLayout);
+        LogPanelLayout.setHorizontalGroup(
+            LogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 598, Short.MAX_VALUE)
+        );
+        LogPanelLayout.setVerticalGroup(
+            LogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 198, Short.MAX_VALUE)
+        );
+
+        LogScroll.setViewportView(LogPanel);
+
+        javax.swing.GroupLayout UserPanelLayout = new javax.swing.GroupLayout(UserPanel);
+        UserPanel.setLayout(UserPanelLayout);
+        UserPanelLayout.setHorizontalGroup(
+            UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 598, Short.MAX_VALUE)
+        );
+        UserPanelLayout.setVerticalGroup(
+            UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 198, Short.MAX_VALUE)
+        );
+
+        UserScroll.setViewportView(UserPanel);
 
         serverOn.setBackground(new java.awt.Color(0, 204, 51));
         serverOn.setFont(new java.awt.Font("굴림", 1, 11)); // NOI18N
@@ -85,89 +137,111 @@ public class ServerGUI extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                     .addComponent(ChattingControlArea)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(serverOff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(serverOn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(UserScroll, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(LogScroll, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Area_Scroll, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(47, 47, 47)
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(serverOff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(serverOn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(MainPanelLayout.createSequentialGroup()
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jButton1))
+                            .addComponent(UserScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(serverOn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(serverOff)
-                        .addGap(0, 225, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addComponent(serverOff)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(LogScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(Area_Scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(0, 0, 0)))
                 .addComponent(ChattingControlArea, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        Area_Scroll.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(guiTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(guiTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 1235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(guiTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ChattingControlAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChattingControlAreaActionPerformed
-        ChattingDebugArea.append("" + ChattingControlArea.getText() + "\n");
+        ChattingDebugArea.append(ChattingControlArea.getText() + "\n");
         ChattingControlArea.setText("");
     }//GEN-LAST:event_ChattingControlAreaActionPerformed
 
     private void serverOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serverOnActionPerformed
-      
-        SocketManager socketmanager = new SocketManager(5000);
-        ChattingDebugArea.append("Server ON\n");
-        
+        Thread t = new Thread(new SocketManager(5000));
+        t.start();
+        ChattingDebugArea.append("서버の 온デス");
     }//GEN-LAST:event_serverOnActionPerformed
 
     private void serverOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serverOffActionPerformed
         System.exit(0);
     }//GEN-LAST:event_serverOffActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        UserPanel.add(new UserContent(), "wrap");
+        UserPanel.repaint();
+        UserPanel.revalidate();
+      
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        LogPanel.add(new  LogPrint(), "wrap");
+        LogPanel.repaint();
+        LogPanel.revalidate();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,20 +270,23 @@ public class ServerGUI extends javax.swing.JFrame {
         //</editor-fold>
         
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ServerGUI().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ServerGUI().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane Area_Scroll;
     private javax.swing.JTextField ChattingControlArea;
     private javax.swing.JTextArea ChattingDebugArea;
+    private javax.swing.JPanel LogPanel;
+    private javax.swing.JScrollPane LogScroll;
     private javax.swing.JPanel MainPanel;
+    private javax.swing.JPanel UserPanel;
+    private javax.swing.JScrollPane UserScroll;
     private javax.swing.JLabel guiTitle;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JButton serverOff;
     private javax.swing.JButton serverOn;

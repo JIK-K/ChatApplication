@@ -15,7 +15,6 @@ public class Server {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SocketManager socketMangaer = new SocketManager(5000);
     }
     
 }
